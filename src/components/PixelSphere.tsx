@@ -140,6 +140,9 @@ export default function PixelSphere({
     // Dim animation (0 = no dim, 1 = fully dimmed)
     dimAmount: 0,
     targetDimAmount: 0,
+    // Hover category highlight
+    hoveredCategory: null as KnowledgeCategory | null,
+    hoverDimAmount: 0,
     // Selected dot screen position (for inspect button placement)
     selectedScreenX: 0,
     selectedScreenY: 0,
@@ -152,6 +155,11 @@ export default function PixelSphere({
 
   // Stable point data
   const points = useRef<SpherePoint[]>(generatePoints());
+  
+  // Physics: displacement offsets and velocities for each particle
+  const displacements = useRef<{ dx: number; dy: number; dz: number; vx: number; vy: number; vz: number }[]>(
+    points.current.map(() => ({ dx: 0, dy: 0, dz: 0, vx: 0, vy: 0, vz: 0 }))
+  );
 
   // Find target rotation to bring a specific knowledge dot to the front face
   // Front face = z2 = -1 (closest to camera in perspective projection)
@@ -254,7 +262,7 @@ export default function PixelSphere({
 
     const width = canvas.width;
     const height = canvas.height;
-    const baseSize = 1.2;
+    const baseSize = 4;
 
     const render = () => {
       ctx.clearRect(0, 0, width, height);
@@ -300,15 +308,28 @@ export default function PixelSphere({
 
       const fov = s.currentFov;
 
+      // Physics constants
+      const repulsionRadius = 60; // Screen pixels
+      const repulsionStrength = 0.015;
+      const springStrength = 0.06;
+      const damping = 0.9;
+      const maxDisplacement = 0.15;
+
       const projected: ProjectedPoint[] = [];
 
       for (let i = 0; i < points.current.length; i++) {
         const p = points.current[i];
+        const d = displacements.current[i];
 
-        const y1 = p.y * cosX - p.z * sinX;
-        const z1 = p.y * sinX + p.z * cosX;
-        const x2 = p.x * cosY - z1 * sinY;
-        const z2 = p.x * sinY + z1 * cosY;
+        // Apply displacement to get current position
+        const px = p.x + d.dx;
+        const py = p.y + d.dy;
+        const pz = p.z + d.dz;
+
+        const y1 = py * cosX - pz * sinX;
+        const z1 = py * sinX + pz * cosX;
+        const x2 = px * cosY - z1 * sinY;
+        const z2 = px * sinY + z1 * cosY;
         const y2 = y1;
 
         const scale = fov / (fov + z2);
@@ -333,7 +354,8 @@ export default function PixelSphere({
       projected.sort((a, b) => b.z - a.z);
 
       let hoveredPoint: ProjectedPoint | null = null;
-      let minMouseDist = 20;
+      let hoveredIndex = -1;
+      let minMouseDist = 25;
 
       // Find hovered point
       if (!s.isDragging) {
@@ -346,29 +368,75 @@ export default function PixelSphere({
           if (dist < minMouseDist) {
             minMouseDist = dist;
             hoveredPoint = p;
+            // Find original index
+            hoveredIndex = points.current.findIndex(pt => pt.knowledgeId === p.knowledgeId);
           }
         }
       }
 
       s.isHovering = !!hoveredPoint;
+      
+      // Track hovered category for highlighting
+      if (hoveredPoint && !s.isFocused) {
+        s.hoveredCategory = hoveredPoint.category;
+      } else if (!hoveredPoint) {
+        s.hoveredCategory = null;
+      }
+      
+      // Animate hover dim amount
+      const targetHoverDim = s.hoveredCategory ? 0.6 : 0;
+      s.hoverDimAmount += (targetHoverDim - s.hoverDimAmount) * 0.15;
 
-      // Repulsion effect on hover
-      if (hoveredPoint) {
-        for (let i = 0; i < projected.length; i++) {
-          const p = projected[i];
-          if (p === hoveredPoint) continue;
+      // Physics-based repulsion from cursor
+      for (let i = 0; i < points.current.length; i++) {
+        const p = points.current[i];
+        const d = displacements.current[i];
+        const proj = projected.find(pt => pt.knowledgeId === p.knowledgeId);
+        if (!proj) continue;
 
-          const dx = p.x - hoveredPoint.x;
-          const dy = p.y - hoveredPoint.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          const maxRepulseDist = 60;
+        // Calculate screen distance from cursor
+        const screenDx = proj.x - s.mouseX;
+        const screenDy = proj.y - s.mouseY;
+        const screenDist = Math.sqrt(screenDx * screenDx + screenDy * screenDy);
 
-          if (dist < maxRepulseDist && dist > 0.1) {
-            const force = Math.pow((maxRepulseDist - dist) / maxRepulseDist, 2);
-            const pushAmount = force * 25;
-            p.x += (dx / dist) * pushAmount;
-            p.y += (dy / dist) * pushAmount;
-          }
+        // Apply repulsion force if within radius
+        if (screenDist < repulsionRadius && screenDist > 1) {
+          const force = Math.pow((repulsionRadius - screenDist) / repulsionRadius, 2) * repulsionStrength;
+          
+          // Convert screen-space direction to 3D force
+          // Normalize and scale by depth
+          const depthFactor = 1 / (proj.scale + 0.5);
+          const forceX = (screenDx / screenDist) * force * depthFactor;
+          const forceY = (screenDy / screenDist) * force * depthFactor;
+          
+          // Apply force to velocity (in world space, approximate)
+          d.vx += forceX * Math.cos(-s.rotY) - forceY * Math.sin(-s.rotX) * Math.sin(-s.rotY);
+          d.vy += forceY * Math.cos(-s.rotX);
+          d.vz += -forceX * Math.sin(-s.rotY) - forceY * Math.sin(-s.rotX) * Math.cos(-s.rotY);
+        }
+
+        // Spring force back to origin
+        d.vx -= d.dx * springStrength;
+        d.vy -= d.dy * springStrength;
+        d.vz -= d.dz * springStrength;
+
+        // Apply damping
+        d.vx *= damping;
+        d.vy *= damping;
+        d.vz *= damping;
+
+        // Update displacement
+        d.dx += d.vx;
+        d.dy += d.vy;
+        d.dz += d.vz;
+
+        // Clamp displacement to prevent particles flying too far
+        const dispMag = Math.sqrt(d.dx * d.dx + d.dy * d.dy + d.dz * d.dz);
+        if (dispMag > maxDisplacement) {
+          const scale = maxDisplacement / dispMag;
+          d.dx *= scale;
+          d.dy *= scale;
+          d.dz *= scale;
         }
       }
 
@@ -389,17 +457,30 @@ export default function PixelSphere({
         const isHovered = p === hoveredPoint;
         const isPrimarySelected = p === primarySelectedDot;
         const isSameCategory = p.category === s.focusedCategory;
+        const isHoveredCategory = p.category === s.hoveredCategory;
         const isDimming = s.dimAmount > 0.01;
+        const isHoverDimming = s.hoverDimAmount > 0.01;
 
         // Base depth-based opacity
         let opacity = Math.max(0.1, Math.min(1, (1 - p.z) / 2));
 
-        // Apply dimming to non-selected dots
+        // Apply dimming to non-selected dots (when focused/selected)
         if (isDimming && !isPrimarySelected) {
           if (isSameCategory) {
             opacity = opacity * (1 - s.dimAmount * 0.4);
           } else {
             opacity = opacity * (1 - s.dimAmount * 0.95);
+          }
+        }
+        
+        // Apply hover category highlighting (dim other categories)
+        if (isHoverDimming && !isDimming && !isHovered) {
+          if (isHoveredCategory) {
+            // Boost opacity for same category
+            opacity = Math.min(1, opacity * (1 + s.hoverDimAmount * 0.3));
+          } else {
+            // Dim other categories
+            opacity = opacity * (1 - s.hoverDimAmount * 0.7);
           }
         }
 
@@ -728,7 +809,7 @@ export default function PixelSphere({
         className="absolute top-0 left-0 opacity-0 pointer-events-none z-20 text-center pointer-events-none"
         style={{ willChange: 'transform' }}
       >
-        <div className="bg-black/80 backdrop-blur-sm border border-primary/30 px-3 py-2 rounded text-xs font-mono text-white font-bold shadow-[0_0_15px_rgba(255,59,0,0.3)] min-w-[120px] max-w-[280px]">
+        <div className="bg-black/80 backdrop-blur-sm border border-primary/30 px-3 py-2 rounded text-xs font-mono text-white font-bold shadow-[0_0_15px_rgba(99,102,241,0.4)] min-w-[120px] max-w-[280px]">
           {displayedTitle}
           {targetTitle.length > 0 && displayedTitle.length < targetTitle.length && (
             <span className="inline-block w-2 h-3 ml-1 bg-primary animate-pulse align-middle"></span>

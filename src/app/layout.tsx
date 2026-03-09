@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Doto, Press_Start_2P } from "next/font/google";
+import { Geist_Mono, Press_Start_2P } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
-const doto = Doto({
-  variable: "--font-doto",
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800", "900"],
 });
@@ -16,8 +16,8 @@ const pressStart = Press_Start_2P({
 });
 
 export const metadata: Metadata = {
-  title: "RELAY Retro Dashboard",
-  description: "A pixelated, high-contrast, black-and-orange agent dashboard.",
+  title: "DAMN Dashboard",
+  description: "Openclaw DAMN - Stack Overflow for AI Agents",
 };
 
 export default function RootLayout({
@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${doto.variable} ${pressStart.variable} ${doto.className} antialiased`}
+        className={`${geistMono.variable} ${pressStart.variable} ${geistMono.className} antialiased`}
       >
         {children}
         <Toaster />

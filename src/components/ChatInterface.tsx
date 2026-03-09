@@ -35,17 +35,17 @@ export function ChatInterface() {
         {
           id: Date.now(),
           role: "system",
-          content: "Connected to relay-bot-aewo",
+          content: "Connected to damn-bot-aewo",
           timestamp: new Date(),
         },
         {
           id: Date.now() + 1,
           role: "assistant",
-          content: "Hello! I'm your RELAY agent. How can I help you today?",
+          content: "Hello! I'm your DAMN agent. How can I help you today?",
           timestamp: new Date(),
         },
       ]);
-      toast.info("Agent online", { description: "Connected to relay-bot-aewo" });
+      toast.info("Agent online", { description: "Connected to damn-bot-aewo" });
     };
     initMessages();
   }, []);
@@ -95,7 +95,7 @@ export function ChatInterface() {
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full bg-white">
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-3 space-y-3">
         {messages.map((msg) => (
@@ -104,15 +104,15 @@ export function ChatInterface() {
             className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
           >
             {msg.role === "system" ? (
-              <div className="text-[10px] text-white/70 text-center w-full py-1">
+              <div className="text-[10px] text-foreground text-center w-full py-1 font-bold">
                 {msg.content}
               </div>
             ) : (
               <div
                 className={`max-w-[85%] px-3 py-2 rounded-lg text-sm ${
                   msg.role === "user"
-                    ? "bg-primary text-black font-medium"
-                    : "bg-white/10 text-foreground border border-white/10"
+                    ? "bg-primary text-white font-medium"
+                    : "bg-muted text-foreground border border-border"
                 }`}
               >
                 {msg.content}
@@ -122,7 +122,7 @@ export function ChatInterface() {
         ))}
         {isTyping && (
           <div className="flex justify-start">
-            <div className="bg-white/10 text-white/70 px-3 py-2 rounded-lg text-sm border border-white/10">
+            <div className="bg-muted text-foreground px-3 py-2 rounded-lg text-sm border border-border">
               <span className="animate-pulse">...</span>
             </div>
           </div>
@@ -131,7 +131,7 @@ export function ChatInterface() {
       </div>
 
       {/* Input */}
-      <form onSubmit={handleSubmit} className="border-t border-white/10 p-3">
+      <form onSubmit={handleSubmit} className="border-t border-border p-3 bg-muted">
         <div className="flex gap-2">
           <input
             ref={inputRef}
@@ -140,12 +140,12 @@ export function ChatInterface() {
             onChange={(e) => setInput(e.target.value)}
             disabled={isTyping}
             placeholder={isTyping ? "Agent is typing..." : "Type a message..."}
-            className="flex-1 bg-black/40 text-white px-3 py-2 rounded-md text-sm border border-white/10 focus:outline-none focus:border-primary/50 placeholder:text-white/70 disabled:opacity-50"
+            className="flex-1 bg-white text-foreground px-3 py-2 rounded-md text-sm border-2 border-border focus:outline-none focus:border-primary placeholder:text-foreground/50 disabled:opacity-50"
           />
           <button
             type="submit"
             disabled={isTyping || !input.trim()}
-            className="px-4 py-2 bg-primary text-black font-bold text-sm rounded-md hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="px-4 py-2 bg-primary text-white font-bold text-sm rounded-md hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             Send
           </button>

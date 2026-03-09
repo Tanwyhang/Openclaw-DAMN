@@ -986,7 +986,7 @@ export function SimulationFlow(props: SimulationFlowProps) {
       <div className="border border-zinc-800 rounded-xl overflow-hidden bg-zinc-950/80">
         {/* Container header */}
         <div className="flex items-center gap-2.5 px-4 py-2.5 bg-zinc-900/60 border-b border-zinc-800">
-          <div className="w-4 h-4 rounded bg-gradient-to-br from-orange-400 to-amber-600 flex items-center justify-center">
+          <div className="w-4 h-4 rounded bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center">
             <Cpu size={10} className="text-white" />
           </div>
           <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">E2B Sandbox</span>

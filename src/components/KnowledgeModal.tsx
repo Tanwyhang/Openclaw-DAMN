@@ -5,12 +5,10 @@ import { Button } from "@/components/ui/button";
 
 export function KnowledgeModal() {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4">
-      <Card className="w-full max-w-5xl bg-card border-4 border-primary rounded-none shadow-[10px_10px_0_0_#FF5E00] flex min-h-[600px]">
-        {/* Left Side: Pixel Sphere Graphic */}
-        <div className="w-1/3 border-r-4 border-primary bg-black flex flex-col items-center justify-center p-6 relative">
-          <div className="text-primary opacity-20 absolute top-4 left-4 text-xs">RELAY</div>
-          {/* Big ASCII Sphere Placeholder */}
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/90 p-4">
+      <Card className="w-full max-w-5xl bg-card border-4 border-primary rounded-none shadow-[10px_10px_0_0_rgba(99,102,241,0.5)] flex min-h-[600px]">
+        <div className="w-1/3 border-r-4 border-primary bg-muted flex flex-col items-center justify-center p-6 relative">
+          <div className="text-primary opacity-20 absolute top-4 left-4 text-xs">DAMN</div>
           <div className="text-xs leading-[0.6rem] text-primary text-center font-mono opacity-80" aria-hidden>
 <pre>
        .o88888888888888o.
@@ -28,54 +26,50 @@ export function KnowledgeModal() {
           </div>
         </div>
 
-        {/* Right Side: Data and List */}
         <div className="w-2/3 flex flex-col">
-          <CardHeader className="flex flex-row items-center justify-between border-b-4 border-primary p-4 bg-[#1a1a1a]">
+          <CardHeader className="flex flex-row items-center justify-between border-b-4 border-primary p-4 bg-muted">
             <div className="flex items-center gap-4">
-              <CardTitle className="text-xl font-bold tracking-widest text-white uppercase">
+              <CardTitle className="text-xl font-bold tracking-widest text-foreground uppercase">
                 Knowledge
               </CardTitle>
-              <span className="text-xs bg-black text-primary border border-primary px-2 font-bold uppercase">Mixed</span>
+              <span className="text-xs bg-card text-primary border border-primary px-2 font-bold uppercase">Mixed</span>
             </div>
-            <div className="text-primary hover:text-white cursor-pointer font-bold">[ X ]</div>
+            <div className="text-primary hover:text-foreground cursor-pointer font-bold">[ X ]</div>
           </CardHeader>
           
           <CardContent className="p-6 flex-grow flex flex-col gap-6 overflow-y-auto">
             
-            {/* Stats Row */}
             <div className="grid grid-cols-4 gap-4">
-              <div className="border-4 border-primary bg-black p-4 text-center shadow-[4px_4px_0_0_#FF5E00] flex flex-col justify-center">
+              <div className="border-4 border-primary bg-card p-4 text-center shadow-[4px_4px_0_0_rgba(99,102,241,0.4)] flex flex-col justify-center">
                 <div className="text-4xl font-black text-primary">54</div>
-                <div className="text-xs text-white/70 uppercase tracking-widest mt-1">Total</div>
+                <div className="text-xs text-muted-foreground uppercase tracking-widest mt-1">Total</div>
               </div>
-              <div className="border-2 border-[#ffcc00] bg-black p-4 text-center flex flex-col justify-center">
-                <div className="text-3xl font-bold text-[#ffcc00]">20</div>
-                <div className="text-xs text-white/70 uppercase tracking-widest mt-1">Pending</div>
+              <div className="border-2 border-amber-500 bg-card p-4 text-center flex flex-col justify-center">
+                <div className="text-3xl font-bold text-amber-500">20</div>
+                <div className="text-xs text-muted-foreground uppercase tracking-widest mt-1">Pending</div>
               </div>
-              <div className="border-2 border-[#00ff00] bg-black p-4 text-center flex flex-col justify-center">
-                <div className="text-3xl font-bold text-[#00ff00]">31</div>
-                <div className="text-xs text-white/70 uppercase tracking-widest mt-1">Approved</div>
+              <div className="border-2 border-emerald-500 bg-card p-4 text-center flex flex-col justify-center">
+                <div className="text-3xl font-bold text-emerald-500">31</div>
+                <div className="text-xs text-muted-foreground uppercase tracking-widest mt-1">Approved</div>
               </div>
-              <div className="border-2 border-red-500 bg-black p-4 text-center flex flex-col justify-center">
+              <div className="border-2 border-red-500 bg-card p-4 text-center flex flex-col justify-center">
                 <div className="text-3xl font-bold text-red-500">3</div>
-                <div className="text-xs text-white/70 uppercase tracking-widest mt-1">Rejected</div>
+                <div className="text-xs text-muted-foreground uppercase tracking-widest mt-1">Rejected</div>
               </div>
             </div>
 
-            {/* Filters Row */}
-            <div className="flex justify-between items-center bg-black/50 p-2 border-2 border-primary">
+            <div className="flex justify-between items-center bg-muted/50 p-2 border-2 border-primary">
               <div className="flex gap-2">
-                <Button variant="outline" className="h-7 text-xs rounded-none border-primary text-black bg-primary">All</Button>
-                <Button variant="outline" className="h-7 text-xs rounded-none border-primary bg-black text-primary hover:bg-primary hover:text-black">Pending</Button>
-                <Button variant="outline" className="h-7 text-xs rounded-none border-primary bg-black text-primary hover:bg-primary hover:text-black">Approved</Button>
-                <Button variant="outline" className="h-7 text-xs rounded-none border-primary bg-black text-primary hover:bg-primary hover:text-black">Rejected</Button>
+                <Button variant="outline" className="h-7 text-xs rounded-none border-primary text-white bg-primary">All</Button>
+                <Button variant="outline" className="h-7 text-xs rounded-none border-primary bg-card text-primary hover:bg-primary hover:text-white">Pending</Button>
+                <Button variant="outline" className="h-7 text-xs rounded-none border-primary bg-card text-primary hover:bg-primary hover:text-white">Approved</Button>
+                <Button variant="outline" className="h-7 text-xs rounded-none border-primary bg-card text-primary hover:bg-primary hover:text-white">Rejected</Button>
               </div>
-              <Button className="h-7 text-xs rounded-none bg-primary text-black font-bold border-2 border-primary hover:bg-white hover:text-black">
+              <Button className="h-7 text-xs rounded-none bg-primary text-white font-bold border-2 border-primary hover:bg-foreground hover:text-white">
                 + Submit Knowledge
               </Button>
             </div>
 
-            {/* List */}
             <div className="flex flex-col gap-3">
               {[
                 "Analysis: Automated liquidity-rotation bots on Arbitrum in J...",
@@ -86,15 +80,15 @@ export function KnowledgeModal() {
               ].map((title, i) => (
                <div key={i} className="flex justify-between items-center border-b-2 border-primary/30 pb-3 hover:bg-primary/5 p-2">
                  <div className="flex items-center gap-3">
-                   <div className="w-2 h-2 bg-red-500 rounded-none shadow-[1px_1px_0_0_#fff]"></div>
+                   <div className="w-2 h-2 bg-red-500 rounded-none shadow-[1px_1px_0_0_rgba(0,0,0,0.2)]"></div>
                    <span className="text-sm">{title}</span>
                  </div>
                  <div className="flex items-center gap-3">
-                   <span className="text-[10px] text-[#ffcc00] border border-[#ffcc00] px-1 font-bold">PENDING</span>
-                   <span className="text-xs text-white/70">1/0</span>
+                   <span className="text-[10px] text-amber-500 border border-amber-500 px-1 font-bold">PENDING</span>
+                   <span className="text-xs text-muted-foreground">1/0</span>
                    <div className="flex gap-1 ml-2">
-                     <Button className="h-6 text-[10px] rounded-none bg-black border border-[#00ff00] text-[#00ff00] hover:bg-[#00ff00] hover:text-black uppercase font-bold px-2">Approve</Button>
-                     <Button className="h-6 text-[10px] rounded-none bg-black border border-red-500 text-red-500 hover:bg-red-500 hover:text-black uppercase font-bold px-2">Reject</Button>
+                     <Button className="h-6 text-[10px] rounded-none bg-card border border-emerald-500 text-emerald-500 hover:bg-emerald-500 hover:text-white uppercase font-bold px-2">Approve</Button>
+                     <Button className="h-6 text-[10px] rounded-none bg-card border border-red-500 text-red-500 hover:bg-red-500 hover:text-white uppercase font-bold px-2">Reject</Button>
                    </div>
                  </div>
                </div>

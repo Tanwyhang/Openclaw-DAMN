@@ -91,21 +91,21 @@ export function AddKnowledgeModal({ onClose, onSave }: AddKnowledgeModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-foreground/80 backdrop-blur-sm">
       <div
-        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-gray-900 border-4 border-primary shadow-[0_0_30px_rgba(255,59,0,0.4)] flex flex-col"
+        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-card border-4 border-primary shadow-[0_0_30px_rgba(99,102,241,0.3)] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="sticky top-0 z-10 flex items-center justify-between p-4 bg-primary border-b-4 border-primary">
-          <div className="flex items-center gap-3 text-black">
+          <div className="flex items-center gap-3 text-white">
             <h2 className="text-xl font-black tracking-widest uppercase [font-family:var(--font-press-start)]">
               ADD KNOWLEDGE
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="flex items-center justify-center w-8 h-8 text-black transition-colors border-2 border-black hover:bg-black hover:text-primary"
+            className="flex items-center justify-center w-8 h-8 text-white transition-colors border-2 border-white hover:bg-white hover:text-primary"
           >
             <X size={20} strokeWidth={3} />
           </button>
@@ -120,7 +120,7 @@ export function AddKnowledgeModal({ onClose, onSave }: AddKnowledgeModalProps) {
                 type="text" 
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full bg-black border-2 border-primary/50 text-white p-2 outline-none focus:border-primary transition-colors"
+                className="w-full bg-muted border-2 border-primary/50 text-foreground p-2 outline-none focus:border-primary transition-colors"
                 placeholder="e.g. Memory Leak in Cache Layer"
               />
             </div>
@@ -130,7 +130,7 @@ export function AddKnowledgeModal({ onClose, onSave }: AddKnowledgeModalProps) {
               <select 
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full bg-black border-2 border-primary/50 text-white p-2 outline-none focus:border-primary transition-colors appearance-none"
+                className="w-full bg-muted border-2 border-primary/50 text-foreground p-2 outline-none focus:border-primary transition-colors appearance-none"
               >
                 <option value="Architecture">Architecture</option>
                 <option value="Data">Data</option>
@@ -141,11 +141,11 @@ export function AddKnowledgeModal({ onClose, onSave }: AddKnowledgeModalProps) {
               </select>
             </div>
 
-            <div className="pt-4 border-t border-white/10 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="pt-4 border-t border-primary/10 grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Monetization (x402) */}
-              <div className="bg-black/50 p-4 border border-white/10 rounded">
-                <h3 className="mb-3 text-sm font-bold tracking-wider text-emerald-400 uppercase flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <div className="bg-muted/50 p-4 border border-primary/10 rounded">
+                <h3 className="mb-3 text-sm font-bold tracking-wider text-emerald-500 uppercase flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                   Monetization
                 </h3>
                 <label className="flex items-center gap-3 cursor-pointer mb-3">
@@ -155,20 +155,20 @@ export function AddKnowledgeModal({ onClose, onSave }: AddKnowledgeModalProps) {
                     onChange={(e) => setIsGated(e.target.checked)}
                     className="w-4 h-4 accent-emerald-500"
                   />
-                  <span className="text-white text-sm">Gate Solution (x402 protocol)</span>
+                  <span className="text-foreground text-sm">Gate Solution (x402 protocol)</span>
                 </label>
                 {isGated && (
                   <div className="ml-7">
-                    <label className="block mb-1 text-xs text-white/50 uppercase tracking-wider">Price (USD)</label>
+                    <label className="block mb-1 text-xs text-muted-foreground uppercase tracking-wider">Price (USD)</label>
                     <div className="flex items-center gap-2">
-                      <span className="text-white/50">$</span>
+                      <span className="text-muted-foreground">$</span>
                       <input 
                         type="number"
                         min="0.10"
                         step="0.10"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
-                        className="bg-black border border-white/20 text-white p-1.5 outline-none focus:border-emerald-400 w-24 text-sm"
+                        className="bg-card border border-primary/20 text-foreground p-1.5 outline-none focus:border-emerald-500 w-24 text-sm"
                       />
                     </div>
                   </div>
@@ -176,9 +176,9 @@ export function AddKnowledgeModal({ onClose, onSave }: AddKnowledgeModalProps) {
               </div>
 
               {/* Sandbox Simulation */}
-              <div className="bg-black/50 p-4 border border-white/10 rounded">
-                <h3 className="mb-3 text-sm font-bold tracking-wider text-blue-400 uppercase flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+              <div className="bg-muted/50 p-4 border border-primary/10 rounded">
+                <h3 className="mb-3 text-sm font-bold tracking-wider text-blue-500 uppercase flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
                   Sandbox Simulation
                 </h3>
                 <label className="flex items-start gap-3 cursor-pointer mb-2">
@@ -189,43 +189,43 @@ export function AddKnowledgeModal({ onClose, onSave }: AddKnowledgeModalProps) {
                     className="w-4 h-4 accent-blue-500 mt-0.5"
                   />
                   <div>
-                    <span className="text-white text-sm block">Run Simulation Before Indexing</span>
-                    <span className="text-xs text-white/50 block mt-0.5">Mistral AI Secure Sandbox</span>
+                    <span className="text-foreground text-sm block">Run Simulation Before Indexing</span>
+                    <span className="text-xs text-muted-foreground block mt-0.5">Mistral AI Secure Sandbox</span>
                   </div>
                 </label>
                 {hireValidator && (
-                  <div className="ml-7 mt-2 text-xs font-mono text-white/70 bg-blue-500/10 border border-blue-500/20 p-2 rounded">
+                  <div className="ml-7 mt-2 text-xs font-mono text-muted-foreground bg-blue-500/10 border border-blue-500/20 p-2 rounded">
                     <div>Env: Mistral Sandbox</div>
-                    <div>Cost: <span className="text-blue-400 font-bold">$0.001 USDC</span> (x402)</div>
+                    <div>Cost: <span className="text-blue-500 font-bold">$0.001 USDC</span> (x402)</div>
                   </div>
                 )}
               </div>
             </div>
 
-            <div className="pt-4 border-t border-white/10">
-              <h3 className="mb-4 text-sm font-bold tracking-wider text-red-400 uppercase">Problem</h3>
+            <div className="pt-4 border-t border-primary/10">
+              <h3 className="mb-4 text-sm font-bold tracking-wider text-red-500 uppercase">Problem</h3>
               <div className="space-y-4">
                 <div>
-                  <label className="block mb-1 text-xs font-bold tracking-wider text-white/70 uppercase">Description (Markdown supported)</label>
+                  <label className="block mb-1 text-xs font-bold tracking-wider text-muted-foreground uppercase">Description (Markdown supported)</label>
                   <textarea 
                     value={problemDescription}
                     onChange={(e) => setProblemDescription(e.target.value)}
-                    className="w-full bg-black border border-white/20 text-white p-2 outline-none focus:border-red-400 transition-colors min-h-[150px]"
+                    className="w-full bg-muted border border-primary/20 text-foreground p-2 outline-none focus:border-red-500 transition-colors min-h-[150px]"
                     placeholder="Describe the issue and how it was discovered..."
                   />
                 </div>
               </div>
             </div>
 
-            <div className="pt-4 border-t border-white/10">
-              <h3 className="mb-4 text-sm font-bold tracking-wider text-emerald-400 uppercase">Solution</h3>
+            <div className="pt-4 border-t border-primary/10">
+              <h3 className="mb-4 text-sm font-bold tracking-wider text-emerald-500 uppercase">Solution</h3>
               <div className="space-y-4">
                 <div>
-                  <label className="block mb-1 text-xs font-bold tracking-wider text-white/70 uppercase">Description (Markdown supported)</label>
+                  <label className="block mb-1 text-xs font-bold tracking-wider text-muted-foreground uppercase">Description (Markdown supported)</label>
                   <textarea 
                     value={solutionDescription}
                     onChange={(e) => setSolutionDescription(e.target.value)}
-                    className="w-full bg-black border border-white/20 text-white p-2 outline-none focus:border-emerald-400 transition-colors min-h-[150px]"
+                    className="w-full bg-muted border border-primary/20 text-foreground p-2 outline-none focus:border-emerald-500 transition-colors min-h-[150px]"
                     placeholder="Describe the fix and the steps taken to resolve it..."
                   />
                 </div>
@@ -235,15 +235,15 @@ export function AddKnowledgeModal({ onClose, onSave }: AddKnowledgeModalProps) {
         </div>
 
         {/* Footer */}
-        <div className="sticky bottom-0 z-10 flex items-center justify-between p-4 bg-gray-900 border-t-2 border-white/10">
-          <div className="text-xs font-mono font-bold text-white/70 flex items-center gap-4">
+        <div className="sticky bottom-0 z-10 flex items-center justify-between p-4 bg-card border-t-2 border-primary/10">
+          <div className="text-xs font-mono font-bold text-muted-foreground flex items-center gap-4">
             {hireValidator && (
-              <span className="bg-black/50 p-2 rounded">ESTIMATED PAYMENT: <span className="text-blue-400">$0.001 USDC</span></span>
+              <span className="bg-muted/50 p-2 rounded">ESTIMATED PAYMENT: <span className="text-blue-500">$0.001 USDC</span></span>
             )}
           </div>
           <Button 
             onClick={handleSaveInit}
-            className="flex items-center gap-2 px-6 py-2 text-black transition-all bg-primary hover:bg-white border-2 border-primary font-bold uppercase tracking-wider"
+            className="flex items-center gap-2 px-6 py-2 text-white transition-all bg-primary hover:bg-foreground border-2 border-primary font-bold uppercase tracking-wider"
           >
             <Save size={16} />
             {hireValidator ? "Pay $0.001 & Simulate" : "Index Knowledge"}

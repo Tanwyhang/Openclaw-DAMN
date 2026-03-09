@@ -24,12 +24,12 @@ export interface Knowledge {
 }
 
 export const CATEGORY_COLORS: Record<KnowledgeCategory, number[]> = {
-  Security:     [220, 20, 60],    // Crimson
-  Performance:  [255, 215, 0],    // Gold
-  Architecture: [255, 69, 0],     // Orange Red
-  Data:         [255, 140, 0],    // Dark Orange
-  DevOps:       [255, 99, 71],    // Tomato
-  API:          [255, 127, 80],   // Coral
+  Security:     [239, 68, 68],    // Red (warnings/alerts)
+  Performance:  [34, 197, 94],    // Green (speed/efficiency)
+  Architecture: [99, 102, 241],   // Indigo (primary brand)
+  Data:         [168, 85, 247],   // Purple/Violet
+  DevOps:       [59, 130, 246],   // Blue
+  API:          [139, 92, 246],   // Violet (secondary brand)
 };
 
 export const CATEGORY_LIST: KnowledgeCategory[] = [

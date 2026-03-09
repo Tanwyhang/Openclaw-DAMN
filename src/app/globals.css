@@ -8,8 +8,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-doto);
-  --font-mono: var(--font-doto);
+  --font-sans: var(--font-geist-mono);
+  --font-mono: var(--font-geist-mono);
   --font-press-start: var(--font-press-start);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -51,37 +51,37 @@
 
 :root {
   --radius: 0.5rem;
-  --background: #0a0a0a;
-  --foreground: #ffffff;
-  --card: #171717;
-  --card-foreground: #ffffff;
-  --popover: #0a0a0a;
-  --popover-foreground: #ffffff;
-  --primary: #ff3b00;
-  --primary-foreground: #000000;
-  --secondary: #262626;
-  --secondary-foreground: #ffffff;
-  --muted: #262626;
-  --muted-foreground: #a3a3a3;
-  --accent: #ff3b00;
-  --accent-foreground: #000000;
+  --background: #ffffff;
+  --foreground: #0f0f0f;
+  --card: #fafafa;
+  --card-foreground: #0f0f0f;
+  --popover: #ffffff;
+  --popover-foreground: #0f0f0f;
+  --primary: #6366f1;
+  --primary-foreground: #ffffff;
+  --secondary: #f0f0f0;
+  --secondary-foreground: #0f0f0f;
+  --muted: #f5f5f5;
+  --muted-foreground: #3f3f3f;
+  --accent: #6366f1;
+  --accent-foreground: #ffffff;
   --destructive: #ef4444;
-  --border: #ff3b00;
-  --input: #ff3b00;
-  --ring: #ff3b00;
-  --chart-1: #ff3b00;
-  --chart-2: #f59e0b;
-  --chart-3: #eab308;
-  --chart-4: #fbbf24;
-  --chart-5: #fde047;
-  --sidebar: #0a0a0a;
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: #ff3b00;
-  --sidebar-primary-foreground: #000000;
-  --sidebar-accent: #262626;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #ff3b00;
-  --sidebar-ring: #ff3b00;
+  --border: #d4d4d4;
+  --input: #d4d4d4;
+  --ring: #6366f1;
+  --chart-1: #6366f1;
+  --chart-2: #8b5cf6;
+  --chart-3: #a78bfa;
+  --chart-4: #c4b5fd;
+  --chart-5: #ddd6fe;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #0f0f0f;
+  --sidebar-primary: #6366f1;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f5f5f5;
+  --sidebar-accent-foreground: #0f0f0f;
+  --sidebar-border: #d4d4d4;
+  --sidebar-ring: #6366f1;
 }
 
 .dark {
@@ -92,31 +92,31 @@
   --card-foreground: #ffffff;
   --popover: #0a0a0a;
   --popover-foreground: #ffffff;
-  --primary: #ff3b00;
-  --primary-foreground: #000000;
+  --primary: #6366f1;
+  --primary-foreground: #ffffff;
   --secondary: #262626;
   --secondary-foreground: #ffffff;
   --muted: #262626;
   --muted-foreground: #a3a3a3;
-  --accent: #ff3b00;
-  --accent-foreground: #000000;
+  --accent: #6366f1;
+  --accent-foreground: #ffffff;
   --destructive: #ef4444;
-  --border: #ff3b00;
-  --input: #ff3b00;
-  --ring: #ff3b00;
-  --chart-1: #ff3b00;
-  --chart-2: #f59e0b;
-  --chart-3: #eab308;
-  --chart-4: #fbbf24;
-  --chart-5: #fde047;
+  --border: #6366f1;
+  --input: #6366f1;
+  --ring: #6366f1;
+  --chart-1: #6366f1;
+  --chart-2: #8b5cf6;
+  --chart-3: #a78bfa;
+  --chart-4: #c4b5fd;
+  --chart-5: #ddd6fe;
   --sidebar: #0a0a0a;
   --sidebar-foreground: #ffffff;
-  --sidebar-primary: #ff3b00;
-  --sidebar-primary-foreground: #000000;
+  --sidebar-primary: #6366f1;
+  --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #262626;
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #ff3b00;
-  --sidebar-ring: #ff3b00;
+  --sidebar-border: #6366f1;
+  --sidebar-ring: #6366f1;
 }
 
 @layer base {
@@ -155,36 +155,35 @@
   border-radius: inherit;
   background: linear-gradient(
     135deg,
-    var(--shimmer-color, #ff3b00) 0%,
-    var(--shimmer-color, #ff3b00) 20%,
-    #000000 35%,
-    #000000 40%,
-    var(--shimmer-color, #ff3b00) 55%,
-    var(--shimmer-color, #ff3b00) 100%
+    var(--shimmer-color, #6366f1) 0%,
+    var(--shimmer-color, #6366f1) 20%,
+    #ffffff 35%,
+    #ffffff 40%,
+    var(--shimmer-color, #6366f1) 55%,
+    var(--shimmer-color, #6366f1) 100%
   );
   background-size: 200% 100%;
   animation: shimmer-border 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
-/* Color variants for shimmer borders */
-.shimmer-border-orange {
-  --shimmer-color: #ff3b00;
+.shimmer-border-indigo {
+  --shimmer-color: #6366f1;
 }
 
-.shimmer-border-amber {
-  --shimmer-color: #f59e0b;
+.shimmer-border-violet {
+  --shimmer-color: #8b5cf6;
 }
 
-.shimmer-border-yellow {
-  --shimmer-color: #eab308;
+.shimmer-border-purple {
+  --shimmer-color: #a78bfa;
 }
 
-.shimmer-border-gold {
-  --shimmer-color: #fbbf24;
+.shimmer-border-blue {
+  --shimmer-color: #3b82f6;
 }
 
-.shimmer-border-lime {
-  --shimmer-color: #fde047;
+.shimmer-border-cyan {
+  --shimmer-color: #06b6d4;
 }
 
 /* Payment success reward shimmer — fast diagonal sweep across modal */

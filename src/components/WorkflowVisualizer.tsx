@@ -389,7 +389,7 @@ export function WorkflowVisualizer({
           steps={agent1Steps}
           currentStep={agent1Step}
           totalSteps={AGENT1_STEPS.length}
-          accentColor="#f59e0b"
+          accentColor="#6366f1"
           completedLabel="COMPLETE"
           visible={agent1Visible}
         />
@@ -397,7 +397,7 @@ export function WorkflowVisualizer({
 
       {/* Divider */}
       {agent1Visible && (
-        <div className="border-t border-white/5 my-1.5" />
+        <div className="border-t border-primary/10 my-1.5" />
       )}
 
       {/* Agent 2 — show full row or waiting placeholder */}

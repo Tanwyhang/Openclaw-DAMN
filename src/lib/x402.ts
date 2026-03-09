@@ -3,7 +3,7 @@ import { registerExactEvmScheme } from "@x402/evm/exact/server";
 import type { RouteConfig } from "@x402/next";
 import type { Network } from "@x402/core/types";
 
-// x402 Payment Configuration for RELAY
+// x402 Payment Configuration for DAMN
 // All values are hardcoded per spec (no env vars)
 
 const FACILITATOR_URL = "https://www.x402.org/facilitator";

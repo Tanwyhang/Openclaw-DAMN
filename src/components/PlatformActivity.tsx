@@ -10,7 +10,7 @@ const platformLogs: LogEntry[] = [
     time: "just now",
     knowledgeId: "K-001",
     details: { 
-      source: "Relay Engine", 
+      source: "DAMN Engine", 
       status: "success",
       cost: "1.00 USD",
       description: "Mistral AI Sandbox isolated environment confirmed 0 regressions for solution K-001"
@@ -36,7 +36,7 @@ const platformLogs: LogEntry[] = [
     time: "1h",
     knowledgeId: "K-015",
     details: { 
-      source: "Relay Engine", 
+      source: "DAMN Engine", 
       status: "pending",
       description: "Duplicate resolution found for N+1 query pattern — requires manual review"
     },
@@ -50,7 +50,7 @@ interface PlatformActivityProps {
 export function PlatformActivity({ onLogClick }: PlatformActivityProps) {
   return (
     <div className="flex flex-col h-full">
-      <div className="text-[10px] uppercase tracking-widest text-white/70 mb-2 font-bold">
+      <div className="text-[10px] uppercase tracking-widest text-foreground mb-2 font-bold">
         Platform Activity
       </div>
       <div className="flex-1 overflow-y-auto space-y-1.5 pr-1">
@@ -59,7 +59,7 @@ export function PlatformActivity({ onLogClick }: PlatformActivityProps) {
             key={log.id}
             entry={log}
             clickable
-            accentColor="#fbbf24"
+            accentColor="#6366f1"
             onNavigate={onLogClick}
           />
         ))}
